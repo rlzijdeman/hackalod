@@ -21,15 +21,18 @@ Goal: make it easier to browse and find [georectified historical maps](http://be
 
 [![](mapme.png)](http://lab.adamlink.nl/mapme/index.html)
 
-Map area data is available via the [Adamlink SPARQL endpoint](https://data.adamlink.nl/menno/alles/services/alles#). Example query:
+Map area data is available via the [Adamlink SPARQL endpoint](https://data.adamlink.nl/menno/alles/services/alles#). [SPARQL it yourself](https://druid.datalegend.net/AdamNet/all/sparql/endpoint#query=PREFIX%20bif%3A%20%3Chttp%3A%2F%2Fwww.openlinksw.com%2Fschemas%2Fbif%23%3E%0APREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%0APREFIX%20dct%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E%0APREFIX%20geo%3A%20%3Chttp%3A%2F%2Fwww.opengis.net%2Font%2Fgeosparql%23%3E%0APREFIX%20sem%3A%20%3Chttp%3A%2F%2Fsemanticweb.cs.vu.nl%2F2009%2F11%2Fsem%2F%3E%0APREFIX%20foaf%3A%20%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0APREFIX%20wdt%3A%20%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0APREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0A%0Aselect%20%3Fkaart%20%3Fimg%20%3Fx%20%3Fy%20%3Ftitle%20%7B%0A%20%20%3Fkaart%20dct%3Aspatial%20%3Fspatial%20.%0A%20%20%3Fkaart%20foaf%3Adepiction%20%3Fimg%20.%0A%20%20%3Fkaart%20dc%3Atitle%20%3Ftitle%20.%0A%20%20%3Fspatial%20dc%3Atype%20%22outline%22%5E%5Exsd%3Astring%20.%0A%20%20%3Fspatial%20geo%3AhasGeometry%2Fgeo%3AasWKT%20%3Fwktmap%20.%0A%20%20%3Fspatial%20wdt%3AP2046%20%3Fkm2%20.%0A%20%20bind%20(bif%3Ast_geomfromtext(%22POINT(4.895168%2052.370216)%22)%20as%20%3Fx)%0A%20%20bind%20(bif%3Ast_geomfromtext(%3Fwktmap)%20as%20%3Fy)%0A%20%20FILTER%20(bif%3Ast_intersects(%3Fx%2C%20%3Fy))%0A%7D%0AORDER%20BY%20ASC(%3Fkm2)%0Alimit%205&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&tabTitle=Query&headers=%7B%7D&contentTypeConstruct=application%2Fn-triples%2C*%2F*%3Bq%3D0.9&contentTypeSelect=application%2Fsparql-results%2Bjson%2C*%2F*%3Bq%3D0.9&outputFormat=table) with this example query:
 
 ```sparql
+PREFIX bif: <http://www.openlinksw.com/schemas/bif#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 select ?kaart ?img ?x ?y ?title {
   ?kaart dct:spatial ?spatial .
   ?kaart foaf:depiction ?img .
