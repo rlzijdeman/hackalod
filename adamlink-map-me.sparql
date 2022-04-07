@@ -1,4 +1,3 @@
-#+ summary: Returns 5 images from Amsterdam Image Archive based on x,y coordinate
 #+ endpoint: https://api.druid.datalegend.net/datasets/AdamNet/all/services/endpoint/sparql 
 
 PREFIX bif: <http://www.openlinksw.com/schemas/bif#>
